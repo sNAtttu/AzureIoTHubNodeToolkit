@@ -1,0 +1,20 @@
+{
+  "name": "azure-iot-toolkit",
+  "version": "0.0.1",
+  "description": "Simple toolkit for the basic operations with the Azure IoT Hub",
+  "main": "index.js",
+  "author": "Santeri Nousiainen",
+  "license": "MIT",
+  "scripts": {
+    "compile": "tslint --project . && tsc",
+    "start": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "@types/node": "^11.13.8"
+  },
+  "dependencies": {
+    "azure-iothub": "^1.9.7"
+  }
+}
