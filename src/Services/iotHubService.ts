@@ -24,8 +24,22 @@ export default class IotHubService {
       console.log(error);
       return;
     }
-    console.log("Created device");
-    console.log(deviceInfo);
+    if (
+      deviceInfo &&
+      deviceInfo.authentication &&
+      deviceInfo.authentication.symmetricKey
+    ) {
+      console.log("Created device");
+      console.log(`deviceId: ${deviceInfo.deviceId}`);
+      console.log(
+        `Primary SAS Key: ${deviceInfo.authentication.symmetricKey.primaryKey}`,
+      );
+      console.log(
+        `Secondary SAS Key: ${
+          deviceInfo.authentication.symmetricKey.secondaryKey
+        }`,
+      );
+    }
   }
 
   private createRegistryClient(connectionString: string): Registry {
