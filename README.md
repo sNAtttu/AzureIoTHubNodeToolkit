@@ -21,6 +21,11 @@ Available commands
 - yarn start --action delete --deviceId {deviceId}
 - yarn start --action deleteAll
 
+Optional parameters
+
+- loggerLevel
+  - Possible values are: "error", "warn", "info", "verbose", "debug", "silly"
+
 ## Configuration
 
 This application expects that there is config.json in the root folder.
