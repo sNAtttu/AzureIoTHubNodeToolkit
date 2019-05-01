@@ -3,6 +3,7 @@ import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
+import { verifyParamsForDeviceDelete } from "./Utilities/validation";
 
 const fileService = new FileService();
 const iotHubService = new IotHubService(
@@ -22,12 +23,8 @@ switch (action) {
     removeAllCreatedDevices(iotHubService, fileService);
     break;
   case "delete":
-    if (!argv.deviceId || typeof argv.deviceId !== "string") {
-      throw new Error(
-        "String parameter 'deviceId' missing. Example: 'node index.js --action delete --deviceid {deviceId}'",
-      );
-    }
-    iotHubService.deleteExistingDevice(argv.deviceId);
+    const deviceId = verifyParamsForDeviceDelete(argv.deviceId);
+    iotHubService.deleteExistingDevice(deviceId);
     break;
   default:
     console.log("Unknown action");
