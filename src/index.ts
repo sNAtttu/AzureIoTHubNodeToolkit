@@ -3,6 +3,7 @@ import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
+import LoggerFactory from "./Utilities/logger";
 import { verifyParamsForDeviceDelete } from "./Utilities/validation";
 
 const fileService = new FileService();
@@ -10,10 +11,9 @@ const iotHubService = new IotHubService(
   Configuration.getConnectionString(),
   fileService,
 );
-
+const mainLogger = LoggerFactory.createLogger("Index");
 const action: any = argv.action;
-
-console.log("Action initiated is " + action);
+mainLogger.info("Action initiated is " + action);
 
 switch (action) {
   case "create":
@@ -27,6 +27,6 @@ switch (action) {
     iotHubService.deleteExistingDevice(deviceId);
     break;
   default:
-    console.log("Unknown action");
+    mainLogger.warn("Unknown action");
     break;
 }

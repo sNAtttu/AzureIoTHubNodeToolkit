@@ -1,12 +1,15 @@
 import { Device, Registry } from "azure-iothub";
+import { Logger } from "winston";
+import LoggerFactory from "../Utilities/logger";
 import FileService from "./fileSystemService";
 export default class IotHubService {
   private registryClient: Registry;
   private fileService: FileService;
-
+  private logger: Logger;
   constructor(connectionString: string, fileService: FileService) {
     this.registryClient = this.createRegistryClient(connectionString);
     this.fileService = fileService;
+    this.logger = LoggerFactory.createLogger("IoTHubService");
   }
 
   public createNewDevice() {
@@ -17,8 +20,8 @@ export default class IotHubService {
   }
 
   public deleteExistingDevice(deviceId: string) {
-    console.log("Deleting device with a device id: " + deviceId);
-    this.registryClient.delete(deviceId, this.deviceDeleteCallback);
+    this.logger.info("Deleting device with a device id: " + deviceId);
+    this.registryClient.delete(deviceId, this.deviceDeleteCallback.bind(this));
   }
 
   private deviceDeleteCallback(
@@ -27,10 +30,10 @@ export default class IotHubService {
     transportInfo: any,
   ) {
     if (error) {
-      console.log(`Device deletion failed: ${error}`);
+      this.logger.error(`Device deletion failed: ${error}`);
       return;
     }
-    console.log("Device deleted");
+    this.logger.info("Device deleted");
   }
 
   private deviceCreateCallback(
@@ -38,7 +41,7 @@ export default class IotHubService {
     deviceInfo: Device | undefined,
   ) {
     if (error || deviceInfo === undefined) {
-      console.log(error);
+      this.logger.error(`Device creation failed: ${error}`);
       return;
     }
     this.logDeviceInformation(deviceInfo);
@@ -50,11 +53,11 @@ export default class IotHubService {
       deviceInfo.authentication &&
       deviceInfo.authentication.symmetricKey
     ) {
-      console.log(`deviceId: ${deviceInfo.deviceId}`);
-      console.log(
+      this.logger.info(`deviceId: ${deviceInfo.deviceId}`);
+      this.logger.info(
         `Primary SAS Key: ${deviceInfo.authentication.symmetricKey.primaryKey}`,
       );
-      console.log(
+      this.logger.info(
         `Secondary SAS Key: ${
           deviceInfo.authentication.symmetricKey.secondaryKey
         }`,
