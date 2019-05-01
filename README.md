@@ -26,4 +26,4 @@ Available commands
 This application expects that there is config.json in the root folder.
 
 Example:
-`{ "iotHubConnectionString": "" }`
+`{ "HostName": "", "SharedAccessKeyName": "", "SharedAccessKey": "" }`
