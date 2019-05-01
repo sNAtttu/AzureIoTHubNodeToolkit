@@ -1,3 +1,4 @@
+import { createTestDevice } from "../../TestUtilities/device";
 import FileService from "../fileSystemService";
 
 describe("File system service", () => {
@@ -10,28 +11,27 @@ describe("File system service", () => {
     fileService.deleteCreatedDevicesFromDisk();
   });
   it("should add created device to the createdDevices json", () => {
-    const deviceId = "testDeviceId";
-    fileService.saveCreatedDevice(deviceId);
-    expect(fileService.getCreatedDevices()).toContain(deviceId);
+    const device = createTestDevice();
+    fileService.saveCreatedDevice(device);
+    expect(fileService.getCreatedDevices()).toContain(device);
   });
 
   it("should remove device Id from the array", () => {
-    const deviceId1 = "did1";
-    const deviceId2 = "did2";
+    const device = createTestDevice();
+    const device2 = createTestDevice();
 
-    fileService.saveCreatedDevice(deviceId1);
-    fileService.saveCreatedDevice(deviceId2);
+    fileService.saveCreatedDevice(device);
+    fileService.saveCreatedDevice(device2);
 
-    fileService.removeDevice(deviceId1);
-    expect(fileService.getCreatedDevices()).toEqual([deviceId2]);
+    fileService.removeDevice(device.deviceId);
+    expect(fileService.getCreatedDevices()).toEqual([device2]);
   });
   // Not the best unit test since we communicate with the file system but this is ok for now.
   it("should save the devices to a file if explicitly requested", () => {
-    const deviceId = "testDeviceId";
-    fileService.saveCreatedDevice(deviceId);
-    fileService.saveCreatedDevice(deviceId + "2");
+    const device = createTestDevice();
+    fileService.saveCreatedDevice(device);
     fileService.saveDevicesToDisk();
     expect(fileService.doesCreatedDevicesFileExist()).toBe(true);
-    expect(fileService.getCreatedDevices()).toEqual([deviceId, deviceId + "2"]);
+    expect(fileService.getCreatedDevices()).toEqual([device]);
   });
 });

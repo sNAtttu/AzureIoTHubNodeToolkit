@@ -67,7 +67,7 @@ export default class IotHubService {
   }
 
   private saveDeviceInfo(deviceInfo: Device) {
-    this.fileService.saveCreatedDevice(deviceInfo.deviceId);
+    this.fileService.saveCreatedDevice(deviceInfo);
     this.fileService.saveDevicesToDisk();
   }
 

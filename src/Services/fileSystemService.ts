@@ -1,17 +1,17 @@
+import { Device } from "azure-iothub";
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
-
 export default class FileService {
-  private createdDevices: string[] = [];
+  private createdDevices: Device[] = [];
   private readonly createdDevicesPath = "./createdDevices.json";
   constructor() {
     this.createdDevices = this.loadDevicesFromDisk();
   }
 
-  public saveCreatedDevice(deviceId: string) {
-    this.createdDevices.push(deviceId);
+  public saveCreatedDevice(device: Device) {
+    this.createdDevices.push(device);
   }
 
-  public getCreatedDevices(): string[] {
+  public getCreatedDevices(): Device[] {
     return this.createdDevices;
   }
 
@@ -24,7 +24,9 @@ export default class FileService {
   }
 
   public removeDevice(deviceId: string) {
-    const indexOfDevice = this.createdDevices.findIndex((id) => id === deviceId);
+    const indexOfDevice = this.createdDevices.findIndex(
+      (device) => device.deviceId === deviceId,
+    );
     if (indexOfDevice !== -1) {
       this.createdDevices.splice(indexOfDevice, 1);
     }
@@ -43,7 +45,7 @@ export default class FileService {
     writeFileSync(path, data, { encoding: "utf8" });
   }
 
-  private loadDevicesFromDisk(): string[] {
+  private loadDevicesFromDisk(): Device[] {
     if (this.doesCreatedDevicesFileExist()) {
       const devicesArray = JSON.parse(
         readFileSync(this.createdDevicesPath, { encoding: "utf8" }),

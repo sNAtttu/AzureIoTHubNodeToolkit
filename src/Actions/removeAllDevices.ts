@@ -5,10 +5,10 @@ export function removeAllCreatedDevices(
   iotHubService: IotHubService,
   fileService: FileService,
 ) {
-  const deviceIds = fileService.getCreatedDevices();
-  deviceIds.forEach((deviceId) => {
-    iotHubService.deleteExistingDevice(deviceId);
-    fileService.removeDevice(deviceId);
+  const devices = fileService.getCreatedDevices();
+  devices.forEach((device) => {
+    iotHubService.deleteExistingDevice(device.deviceId);
+    fileService.removeDevice(device.deviceId);
   });
   fileService.deleteCreatedDevicesFromDisk();
 }
