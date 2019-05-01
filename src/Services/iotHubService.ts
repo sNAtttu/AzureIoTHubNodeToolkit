@@ -1,17 +1,19 @@
 import { Device, Registry } from "azure-iothub";
-
+import FileService from "./fileSystemService";
 export default class IotHubService {
   private registryClient: Registry;
+  private fileService: FileService;
 
   constructor(connectionString: string) {
     this.registryClient = this.createRegistryClient(connectionString);
+    this.fileService = new FileService();
   }
 
   public createNewDevice() {
     const device = {
       deviceId: "sample-device-" + Date.now(),
     };
-    this.registryClient.create(device, this.deviceCreateCallback);
+    this.registryClient.create(device, this.deviceCreateCallback.bind(this));
   }
 
   public deleteExistingDevice(deviceId: string) {
@@ -53,6 +55,8 @@ export default class IotHubService {
           deviceInfo.authentication.symmetricKey.secondaryKey
         }`,
       );
+      this.fileService.saveCreatedDevice(deviceInfo.deviceId);
+      this.fileService.saveDevicesToDisk();
     }
   }
 
