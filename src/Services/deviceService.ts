@@ -1,20 +1,27 @@
-import { Client, ConnectionString } from "azure-iot-device";
+import { ConnectionString as DeviceConnectionString } from "azure-iot-device";
+import { Device } from "azure-iothub";
 
 export default class DeviceService {
   private deviceId: string = "";
-  constructor(deviceId: string) {
-    this.deviceId = deviceId;
+  private connectionString: string = "";
+
+  constructor(hostName: string, device: Device) {
+    this.deviceId = device.deviceId;
+    this.connectionString = this.constructConnectionString(hostName, device);
   }
 
-  private constructConnectionString(
-    hostName: string,
-    deviceId: string,
-    primaryKey: string,
-  ): string {
-    return ConnectionString.createWithSharedAccessKey(
-      hostName,
-      deviceId,
-      primaryKey,
-    );
+  public getConnectionString() {
+    return this.connectionString;
+  }
+
+  private constructConnectionString(hostName: string, device: Device): string {
+    if (device && device.authentication && device.authentication.symmetricKey) {
+      return DeviceConnectionString.createWithSharedAccessKey(
+        hostName,
+        device.deviceId,
+        device.authentication.symmetricKey.primaryKey,
+      );
+    }
+    return "";
   }
 }

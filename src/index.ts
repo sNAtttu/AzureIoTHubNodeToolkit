@@ -6,12 +6,14 @@ import IotHubService from "./Services/iotHubService";
 import LoggerFactory from "./Utilities/logger";
 import { verifyParamsForDeviceDelete } from "./Utilities/validation";
 
-const fileService = new FileService();
-const iotHubService = new IotHubService(
-  Configuration.getConnectionString(),
-  fileService,
+const mainLogger = LoggerFactory.createLogger(
+  "Index",
+  typeof argv.loggerLevel === "string" ? argv.loggerLevel : undefined,
 );
-const mainLogger = LoggerFactory.createLogger("Index");
+const fileService = new FileService();
+const iotHubConnectionString = Configuration.getConnectionString();
+mainLogger.verbose(`using ${iotHubConnectionString} to connect to the iot hub`);
+const iotHubService = new IotHubService(iotHubConnectionString, fileService);
 const action: any = argv.action;
 mainLogger.info("Action initiated is " + action);
 

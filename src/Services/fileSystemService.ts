@@ -1,9 +1,13 @@
 import { Device } from "azure-iothub";
 import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
+import { Logger } from "winston";
+import LoggerFactory from "../Utilities/logger";
 export default class FileService {
   private createdDevices: Device[] = [];
+  private logger: Logger;
   private readonly createdDevicesPath = "./createdDevices.json";
   constructor() {
+    this.logger = LoggerFactory.createLogger("FileService");
     this.createdDevices = this.loadDevicesFromDisk();
   }
 
@@ -29,6 +33,7 @@ export default class FileService {
     );
     if (indexOfDevice !== -1) {
       this.createdDevices.splice(indexOfDevice, 1);
+      this.saveDevices();
     }
   }
 
@@ -42,6 +47,7 @@ export default class FileService {
   private saveDevices() {
     const path: string = this.createdDevicesPath;
     const data: string = JSON.stringify(this.createdDevices);
+    this.logger.info("Saving data to the disk");
     writeFileSync(path, data, { encoding: "utf8" });
   }
 
@@ -50,6 +56,7 @@ export default class FileService {
       const devicesArray = JSON.parse(
         readFileSync(this.createdDevicesPath, { encoding: "utf8" }),
       );
+      this.logger.info(`Loaded ${devicesArray.length} devices to the memory`);
       return devicesArray;
     } else {
       return [];
