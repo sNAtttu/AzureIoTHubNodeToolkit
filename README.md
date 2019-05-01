@@ -1,6 +1,6 @@
-# AzureIoTHubNodeToolkit
+# Azure IoT Hub Dev Toolkit
 
-Azure IoT Hub Toolkit
+Simple toolkit for helping the daily development life with the Azure IoT Hub.
 
 ## Usage
 
