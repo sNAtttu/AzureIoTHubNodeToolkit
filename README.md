@@ -25,6 +25,7 @@ Optional parameters
 
 - loggerLevel
   - Possible values are: "error", "warn", "info", "verbose", "debug", "silly"
+  - Example: `yarn start --action create --loggerLevel silly`
 
 ## Configuration
 
