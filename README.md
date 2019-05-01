@@ -13,6 +13,7 @@ Available commands
 
 - yarn start --action create
 - yarn start --action delete --deviceId {deviceId}
+- yarn start --action deleteAll
 
 ## Configuration
 
