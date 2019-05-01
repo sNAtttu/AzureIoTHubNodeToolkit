@@ -32,7 +32,9 @@ export default class FileService {
 
   public deleteCreatedDevicesFromDisk() {
     this.createdDevices = [];
-    unlinkSync(this.createdDevicesPath);
+    if (this.doesCreatedDevicesFileExist()) {
+      unlinkSync(this.createdDevicesPath);
+    }
   }
 
   private saveDevices() {

@@ -4,9 +4,9 @@ export default class IotHubService {
   private registryClient: Registry;
   private fileService: FileService;
 
-  constructor(connectionString: string) {
+  constructor(connectionString: string, fileService: FileService) {
     this.registryClient = this.createRegistryClient(connectionString);
-    this.fileService = new FileService();
+    this.fileService = fileService;
   }
 
   public createNewDevice() {
@@ -41,6 +41,10 @@ export default class IotHubService {
       console.log(error);
       return;
     }
+    this.logDeviceInformation(deviceInfo);
+  }
+
+  private logDeviceInformation(deviceInfo: Device) {
     if (
       deviceInfo &&
       deviceInfo.authentication &&
@@ -55,9 +59,13 @@ export default class IotHubService {
           deviceInfo.authentication.symmetricKey.secondaryKey
         }`,
       );
-      this.fileService.saveCreatedDevice(deviceInfo.deviceId);
-      this.fileService.saveDevicesToDisk();
+      this.saveDeviceInfo(deviceInfo);
     }
+  }
+
+  private saveDeviceInfo(deviceInfo: Device) {
+    this.fileService.saveCreatedDevice(deviceInfo.deviceId);
+    this.fileService.saveDevicesToDisk();
   }
 
   private createRegistryClient(connectionString: string): Registry {
