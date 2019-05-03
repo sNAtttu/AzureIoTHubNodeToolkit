@@ -7,9 +7,10 @@ describe("File system service", () => {
     fileService = new FileService();
   });
 
-  afterAll(() => {
+  afterEach(() => {
     fileService.deleteCreatedDevicesFromDisk();
   });
+
   it("should add created device to the createdDevices json", () => {
     const device = createTestDevice();
     fileService.saveCreatedDevice(device);
