@@ -18,7 +18,7 @@ After required tools are on the computer the tools can be used in a following wa
 Available commands
 
 - yarn start --action create
-- yarm start --action getTwin --deviceId {deviceId}
+- yarn start --action getTwin --deviceId {deviceId}
 - yarn start --action delete --deviceId {deviceId}
 - yarn start --action deleteAll
 
