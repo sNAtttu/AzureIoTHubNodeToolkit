@@ -2,11 +2,9 @@ import { ConnectionString as DeviceConnectionString } from "azure-iot-device";
 import { Device } from "azure-iothub";
 
 export default class DeviceService {
-  private deviceId: string = "";
   private connectionString: string = "";
 
   constructor(hostName: string, device: Device) {
-    this.deviceId = device.deviceId;
     this.connectionString = this.constructConnectionString(hostName, device);
   }
 

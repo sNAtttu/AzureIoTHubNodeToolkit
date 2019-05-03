@@ -1,3 +1,4 @@
+import { TripleValueCallback } from "azure-iot-common";
 import { Device, Registry } from "azure-iothub";
 import { v4 } from "uuid";
 import { Logger } from "winston";
@@ -27,6 +28,13 @@ export default class IotHubService {
     this.logger.info("Deleting device with a device id: " + deviceId);
     this.deviceIdToBeRemoved = deviceId;
     this.registryClient.delete(deviceId, this.deviceDeleteCallback.bind(this));
+  }
+
+  public getDeviceTwin(
+    deviceId: string,
+    callback: TripleValueCallback<any, any>,
+  ) {
+    this.registryClient.getTwin(deviceId, callback);
   }
 
   private deviceDeleteCallback(

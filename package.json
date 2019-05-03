@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "azure-iot-device": "^1.9.7",
+    "azure-iot-common": "^1.9.7",
     "azure-iothub": "^1.9.7",
     "uuid": "^3.3.2",
     "winston": "^3.2.1",

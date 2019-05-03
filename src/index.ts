@@ -1,34 +1,42 @@
+import { loggers } from "winston";
 import { argv } from "yargs";
+import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
+import constants from "./Utilities/constants";
 import LoggerFactory from "./Utilities/logger";
-import { verifyParamsForDeviceDelete } from "./Utilities/validation";
+import { validateDeviceId } from "./Utilities/validation";
 
-const mainLogger = LoggerFactory.createLogger(
+const logger = LoggerFactory.createLogger(
   "Index",
   typeof argv.loggerLevel === "string" ? argv.loggerLevel : undefined,
 );
 const fileService = new FileService();
 const iotHubConnectionString = Configuration.getConnectionString();
-mainLogger.verbose(`using ${iotHubConnectionString} to connect to the iot hub`);
+logger.verbose(`using ${iotHubConnectionString} to connect to the iot hub`);
 const iotHubService = new IotHubService(iotHubConnectionString, fileService);
 const action: any = argv.action;
-mainLogger.info("Action initiated is " + action);
+const { actions } = constants;
+logger.info("Action initiated is " + action);
 
 switch (action) {
-  case "create":
+  case actions.create:
     iotHubService.createNewDevice();
     break;
-  case "deleteAll":
+  case actions.deleteAll:
     removeAllCreatedDevices(iotHubService, fileService);
     break;
-  case "delete":
-    const deviceId = verifyParamsForDeviceDelete(argv.deviceId);
-    iotHubService.deleteExistingDevice(deviceId);
+  case actions.delete:
+    const deviceIdForDeletion = validateDeviceId(argv.deviceId);
+    iotHubService.deleteExistingDevice(deviceIdForDeletion);
+    break;
+  case actions.getTwin:
+    const deviceIdForTwin = validateDeviceId(argv.deviceId);
+    getDeviceTwin(iotHubService, logger, deviceIdForTwin);
     break;
   default:
-    mainLogger.warn("Unknown action");
+    logger.warn("Unknown action");
     break;
 }

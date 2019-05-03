@@ -579,6 +579,13 @@ azure-iot-common@1.9.7:
   dependencies:
     getos "^3.1.0"
 
+azure-iot-common@^1.9.7:
+  version "1.9.8"
+  resolved "https://registry.yarnpkg.com/azure-iot-common/-/azure-iot-common-1.9.8.tgz#8719df9eb9477ecc165bab391e2fe37d01984dee"
+  integrity sha512-hPM52MehV88vUYUWpXGD3kkts1EDpU1rQkPuJKdmHhenDJT/emdnb6FT+dlSakjMWGTJMRq+vnf7HHLJFaYSwA==
+  dependencies:
+    getos "^3.1.0"
+
 azure-iot-device@^1.9.7:
   version "1.9.7"
   resolved "https://registry.yarnpkg.com/azure-iot-device/-/azure-iot-device-1.9.7.tgz#718dddb9b74b5437cca78e61cacab8aa8936071a"
