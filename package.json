@@ -11,15 +11,15 @@
     "start": "node ./dist/src/index.js"
   },
   "devDependencies": {
-    "@types/jasmine": "3.3.12",
-    "@types/node": "^11.13.8",
-    "@types/uuid": "^3.4.4",
-    "@types/winston": "^2.4.4",
+    "@types/node": "11.13.8",
+    "@types/uuid": "3.4.4",
+    "@types/winston": "2.4.4",
     "@types/yargs": "13.0.0",
-    "jest": "^24.7.1",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
+    "@types/jest": "24.0.12",
+    "jest": "24.7.1",
+    "ts-jest": "24.0.2",
+    "tslint": "5.16.0",
+    "typescript": "3.4.5"
   },
   "dependencies": {
     "azure-iot-device": "^1.9.7",

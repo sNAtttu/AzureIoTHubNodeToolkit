@@ -1,10 +1,10 @@
-import { loggers } from "winston";
 import { argv } from "yargs";
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
+import CallbackProvider from "./Utilities/callbackProvider";
 import constants from "./Utilities/constants";
 import LoggerFactory from "./Utilities/logger";
 import { validateDeviceId } from "./Utilities/validation";
@@ -34,7 +34,11 @@ switch (action) {
     break;
   case actions.getTwin:
     const deviceIdForTwin = validateDeviceId(argv.deviceId);
-    getDeviceTwin(iotHubService, logger, deviceIdForTwin);
+    getDeviceTwin(
+      iotHubService,
+      deviceIdForTwin,
+      CallbackProvider.getGetTwoParameterCallback(logger),
+    );
     break;
   default:
     logger.warn("Unknown action");
