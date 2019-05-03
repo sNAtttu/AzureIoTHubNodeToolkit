@@ -17,13 +17,13 @@ After required tools are on the computer the tools can be used in a following wa
 
 Available commands
 
-- yarn start --action create
+- **yarn start --action create**
   - Creates a new device to the IoT Hub. Device information is saved on createdDevices.json.
-- yarn start --action getTwin --deviceId {deviceId}
+- **yarn start --action getTwin --deviceId {deviceId}**
   - Gets the device twin of specified device. The application will log the twin and the size of the twin.
-- yarn start --action delete --deviceId {deviceId}
+- **yarn start --action delete --deviceId {deviceId}**
   - Deleted the specified device.
-- yarn start --action deleteAll
+- **yarn start --action deleteAll**
   - Deletes all the devices which are saved in the createdDevices.json.
 
 Optional parameters
