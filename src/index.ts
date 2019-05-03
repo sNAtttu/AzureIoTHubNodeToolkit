@@ -37,7 +37,7 @@ switch (action) {
     getDeviceTwin(
       iotHubService,
       deviceIdForTwin,
-      CallbackProvider.getGetTwoParameterCallback(logger),
+      CallbackProvider.getTwinCallback(logger),
     );
     break;
   default:

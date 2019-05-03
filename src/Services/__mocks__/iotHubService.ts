@@ -1,3 +1,4 @@
+import { TripleValueCallback } from "azure-iot-common";
 import { createTestDeviceTwin } from "../../TestUtilities/device";
 import FileService from "../fileSystemService";
 
@@ -10,7 +11,11 @@ export default class IotHubService {
     this.fileService = fileService;
   }
 
-  public getDeviceTwin() {
-    return createTestDeviceTwin();
+  public getDeviceTwin(
+    service: IotHubService,
+    callback: TripleValueCallback<any, any>,
+  ) {
+    const twin = createTestDeviceTwin();
+    callback(undefined, twin);
   }
 }

@@ -17,9 +17,9 @@ export function createTestDevice(): ITestDevice {
 export function createTestDeviceTwin(): any {
   const { deviceId, status } = createTestDevice();
   return {
-    deviceEtag: "NTE0NTE3Mzg3",
     deviceId,
     etag: "AAAAAAAAAAE=",
+    deviceEtag: "MTMwMDU2MDkx",
     status,
     statusUpdateTime: "0001-01-01T00:00:00",
     connectionState: "Disconnected",
@@ -30,11 +30,11 @@ export function createTestDeviceTwin(): any {
     version: 2,
     properties: {
       desired: {
-        $metadata: { $lastUpdated: "2019-05-03T20:42:46.858913Z" },
+        $metadata: { $lastUpdated: "2019-05-03T22:41:23.188774Z" },
         $version: 1,
       },
       reported: {
-        $metadata: { $lastUpdated: "2019-05-03T20:42:46.858913Z" },
+        $metadata: { $lastUpdated: "2019-05-03T22:41:23.188774Z" },
         $version: 1,
       },
     },

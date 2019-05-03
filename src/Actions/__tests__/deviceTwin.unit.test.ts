@@ -1,6 +1,6 @@
 import FileService from "../../Services/fileSystemService";
 import IotHubService from "../../Services/iotHubService";
-import { getDeviceTwin } from "../deviceTwin";
+import { countDeviceTwinSize, getDeviceTwin } from "../deviceTwin";
 
 jest.mock("../../Services/iotHubService");
 
@@ -14,7 +14,16 @@ describe("Device twin action", () => {
   it("should fetch the device twin", () => {
     const deviceId = "deviceId";
     getDeviceTwin(iotHubService, deviceId, (error, twin) => {
-      expect(twin.deviceId).toBe(deviceId);
+      expect(twin.deviceId).toBeDefined();
+    });
+  });
+
+  it("should count the size of the device twin", (done) => {
+    const deviceId = "deviceId";
+    getDeviceTwin(iotHubService, deviceId, (error, twin) => {
+      const size = countDeviceTwinSize(twin);
+      expect(typeof size).toBe("number");
+      done();
     });
   });
 });
