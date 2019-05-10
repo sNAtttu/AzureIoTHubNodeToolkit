@@ -10,3 +10,6 @@ export function startSendingData(argv: any, fileService: FileService, hostName: 
   const deviceService = IotDeviceFactory.getDeviceService(hostName, existingDevice);
   deviceService.startSendingData(interval);
 }
+
+export function monitorDevice(argv: any, fileService: FileService, hostName: string) {
+}

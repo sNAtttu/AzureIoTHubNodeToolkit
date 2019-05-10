@@ -20,7 +20,7 @@ export default class DeviceService {
   }
 
   public startSendingData(interval: number) {
-    this.deviceClient.open((openConnectionError) => {
+    this.openConnection((openConnectionError) => {
       LoggerFactory.handleErrorLogging(openConnectionError, this.logger);
 
       setInterval(() => {
@@ -35,6 +35,25 @@ export default class DeviceService {
     });
   }
 
+  public startMonitoringDevice() {
+    this.openConnection((openConnectionError) => {
+      LoggerFactory.handleErrorLogging(openConnectionError, this.logger);
+      this.deviceClient.on("message", (message: Message) => {
+        this.logger.info(`${JSON.stringify(message.getData())}`);
+      });
+      this.deviceClient.on("error", (error: Error) => LoggerFactory.handleErrorLogging(error, this.logger));
+    });
+  }
+
+  private openConnection(callback?: (error: Error | undefined) => void) {
+    this.deviceClient.open((error) => {
+      if (callback !== undefined) {
+        callback(error);
+      } else {
+        LoggerFactory.handleErrorLogging(error, this.logger);
+      }
+    });
+  }
   private constructConnectionString(hostName: string, device: Device): string {
     if (device && device.authentication && device.authentication.symmetricKey) {
       return DeviceConnectionString.createWithSharedAccessKey(

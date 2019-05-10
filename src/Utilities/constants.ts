@@ -7,5 +7,6 @@ export default {
     healthCheck: "health",
     sendData: "sendData",
     getDeviceIds: "getDeviceIds",
+    monitor: "monitor",
   },
 };

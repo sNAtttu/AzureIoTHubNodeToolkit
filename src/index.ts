@@ -42,6 +42,9 @@ switch (action) {
   case actions.sendData:
     startSendingData(argv, fileService, Configuration.getHostName());
     break;
+  case actions.monitor:
+
+    break;
   case actions.healthCheck:
     logger.info("Doing a health check");
     break;
