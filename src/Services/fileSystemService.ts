@@ -17,10 +17,14 @@ export default class FileService {
 
   public getCreatedDevices(): Device[] {
     const devices = this.createdDevices;
-    if (devices.length === 0) {
-      this.logger.warn("There are no created devices");
-    }
+    this.isThereDevices(devices);
     return this.createdDevices;
+  }
+
+  public getCreatedDeviceIds(): string[] {
+    const devices = this.createdDevices;
+    this.isThereDevices(devices);
+    return devices.map((device) => device.deviceId);
   }
 
   public findDevice(deviceId: string): Device {
@@ -53,6 +57,12 @@ export default class FileService {
     this.createdDevices = [];
     if (this.doesCreatedDevicesFileExist()) {
       unlinkSync(this.createdDevicesPath);
+    }
+  }
+
+  private isThereDevices(devices: Device[]) {
+    if (devices.length === 0) {
+      this.logger.warn("There are no created devices");
     }
   }
 

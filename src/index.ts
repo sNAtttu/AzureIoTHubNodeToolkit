@@ -1,4 +1,5 @@
 import { argv } from "yargs";
+import { startSendingData } from "./Actions/deviceActions";
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
@@ -34,14 +35,12 @@ switch (action) {
     const deviceIdForDeletion = validateDeviceId(argv.deviceId);
     iotHubService.deleteExistingDevice(deviceIdForDeletion);
     break;
+  case actions.getDeviceIds:
+    const deviceIds = fileService.getCreatedDeviceIds();
+    logger.info(deviceIds.join("\n"));
+    break;
   case actions.sendData:
-    const sendDataArguments: ISendDataArguments = validateSendDataActionCliArguments(argv);
-    const { interval, deviceId } = sendDataArguments;
-    logger.info(`Starting to send data every ${interval} seconds`);
-    const existingDevice = fileService.findDevice(deviceId);
-    const hostName = Configuration.getHostName();
-    const deviceService = IotDeviceFactory.getDeviceService(hostName, existingDevice);
-    deviceService.startSendingData(interval);
+    startSendingData(argv, fileService, Configuration.getHostName());
     break;
   case actions.healthCheck:
     logger.info("Doing a health check");

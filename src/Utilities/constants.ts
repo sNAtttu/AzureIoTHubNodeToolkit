@@ -6,5 +6,6 @@ export default {
     getTwin: "getTwin",
     healthCheck: "health",
     sendData: "sendData",
+    getDeviceIds: "getDeviceIds",
   },
 };
