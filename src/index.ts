@@ -2,12 +2,14 @@ import { argv } from "yargs";
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
+import { ISendDataArguments } from "./Interfaces/cliArguments";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
 import CallbackProvider from "./Utilities/callbackProvider";
 import constants from "./Utilities/constants";
+import IotDeviceFactory from "./Utilities/deviceFactory";
 import LoggerFactory from "./Utilities/logger";
-import { validateDeviceId } from "./Utilities/validation";
+import { validateDeviceId, validateSendDataActionCliArguments } from "./Utilities/validation";
 
 const logger = LoggerFactory.createLogger(
   "Index",
@@ -31,6 +33,20 @@ switch (action) {
   case actions.delete:
     const deviceIdForDeletion = validateDeviceId(argv.deviceId);
     iotHubService.deleteExistingDevice(deviceIdForDeletion);
+    break;
+  case actions.sendData:
+    const sendDataArguments: ISendDataArguments = validateSendDataActionCliArguments(argv);
+    const { interval } = sendDataArguments;
+    logger.info(`Starting to send data every ${interval} seconds`);
+    // For now take first device
+    // TODO: Functionality to find device based on id.
+    const existingDevice = fileService.getCreatedDevices()[0];
+    const hostName = Configuration.getHostName();
+    const deviceService = IotDeviceFactory.getDeviceService(hostName, existingDevice);
+    deviceService.startSendingData(interval);
+    break;
+  case actions.healthCheck:
+    logger.info("Doing a health check");
     break;
   case actions.getTwin:
     const deviceIdForTwin = validateDeviceId(argv.deviceId);

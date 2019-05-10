@@ -1,11 +1,12 @@
+import { ISendDataArguments } from "../Interfaces/cliArguments";
+
 function validateDeviceId(deviceId: any): string {
   if (!deviceId || typeof deviceId !== "string") {
     throw new Error(
       "String parameter 'deviceId' missing. Example: 'node index.js --action delete --deviceid {deviceId}'",
     );
-  } else {
-    return deviceId;
   }
+  return deviceId;
 }
 
 function validateObjectPropertyExistence(
@@ -22,4 +23,15 @@ function validateObjectPropertyExistence(
   }
 }
 
-export { validateDeviceId, validateObjectPropertyExistence };
+function validateSendDataActionCliArguments(argv: any): ISendDataArguments {
+  const { interval } = argv;
+  const intervalIsValid = interval && typeof interval === "number";
+  if (intervalIsValid) {
+    return {
+      interval,
+    };
+  }
+  throw new Error("Send data arguments are invalid");
+}
+
+export { validateDeviceId, validateObjectPropertyExistence, validateSendDataActionCliArguments };

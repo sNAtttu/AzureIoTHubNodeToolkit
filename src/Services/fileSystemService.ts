@@ -16,6 +16,10 @@ export default class FileService {
   }
 
   public getCreatedDevices(): Device[] {
+    const devices = this.createdDevices;
+    if (devices.length === 0) {
+      this.logger.warn("There are no created devices");
+    }
     return this.createdDevices;
   }
 

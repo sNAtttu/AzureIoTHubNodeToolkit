@@ -12,4 +12,11 @@ export default class LoggerFactory {
       transports: new transports.Console(),
     });
   }
+
+  public static handleErrorLogging(error: Error | undefined, logger: Logger) {
+    if (error) {
+      logger.error(error);
+    }
+  }
+
 }
