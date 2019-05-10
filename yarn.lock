@@ -565,13 +565,13 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha512-ReZxvNHIOv88FlT7rxcXIIC0fPt4KZqZbOlivyWtXLt8ESx84zd3kMC6iK5jVeS2qt+g7ftS7ye4fi06X5rtRQ==
 
-azure-iot-amqp-base@2.2.7:
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/azure-iot-amqp-base/-/azure-iot-amqp-base-2.2.7.tgz#27db1c43e2f04def16664074895273f01d1c8058"
-  integrity sha512-JxNmYieFqynj7JUqW6qYyr4MNRHRAybLFC0dScZuCxZYrhRdpV7uUww2LWvJUBWq5xnQ1Lnxp3uTt9AVeetuMw==
+azure-iot-amqp-base@2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/azure-iot-amqp-base/-/azure-iot-amqp-base-2.2.9.tgz#5d445b436a624b13e43831efa13b4fce682bf215"
+  integrity sha512-9jp2q2bMP2wDLOxkq2h7Co8cF+Xiqm8R7CGcCph7j39LocAIyX70fiCddnEbcreZIoh0voY+WMspDyUhxwd43g==
   dependencies:
     async "^2.6.2"
-    azure-iot-common "1.9.7"
+    azure-iot-common "1.9.9"
     debug "^4.1.1"
     lodash.merge "^4.6.1"
     machina "^4.0.2"
@@ -579,51 +579,58 @@ azure-iot-amqp-base@2.2.7:
     uuid "^3.3.2"
     ws "^6.0.0"
 
-azure-iot-common@1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/azure-iot-common/-/azure-iot-common-1.9.7.tgz#74c6064ee4eb5f1b88469e65ab65ed5f147e2845"
-  integrity sha512-oqCJ5yUZ63PcNb9HeQ/M7uRHNFb0J+0RRT1rfnfmjeRFv1ucjN4oMbuliB5Dsiqj4S7eWRWQCtESE7ijlq5SIg==
+azure-iot-common@1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/azure-iot-common/-/azure-iot-common-1.9.9.tgz#5bbe5d874e2123453a4d4e277627f3ae66e7a64c"
+  integrity sha512-JTFHteRDt+HRy3yvFItaR25lk7SX1HfvF1e2wI8MgfwzTMOV1Kt4H3izXfqFeJi0NvFNEOUch+56K9RjO1ZJ8Q==
   dependencies:
     getos "^3.1.0"
 
-azure-iot-common@^1.9.7:
-  version "1.9.8"
-  resolved "https://registry.yarnpkg.com/azure-iot-common/-/azure-iot-common-1.9.8.tgz#8719df9eb9477ecc165bab391e2fe37d01984dee"
-  integrity sha512-hPM52MehV88vUYUWpXGD3kkts1EDpU1rQkPuJKdmHhenDJT/emdnb6FT+dlSakjMWGTJMRq+vnf7HHLJFaYSwA==
+azure-iot-device-amqp@1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/azure-iot-device-amqp/-/azure-iot-device-amqp-1.9.9.tgz#153bd620e4e20a528b817972cd9e25d1ebce2d4b"
+  integrity sha512-NDU/huGDi/NoLmIFFtbSUnogX0CGZVuSPfxLtGXVUIgqUnRAkBxRfj2McXxl1l6SUKc9nXJzgGBlI9fX7/attw==
   dependencies:
-    getos "^3.1.0"
+    async "^2.6.2"
+    azure-iot-amqp-base "2.2.9"
+    azure-iot-common "1.9.9"
+    azure-iot-device "1.9.9"
+    debug "^4.1.1"
+    machina "^4.0.2"
+    rhea "^1.0.2"
+    uuid "^3.3.2"
 
-azure-iot-device@^1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/azure-iot-device/-/azure-iot-device-1.9.7.tgz#718dddb9b74b5437cca78e61cacab8aa8936071a"
-  integrity sha512-eimIprqfYTJOeX+9E9o9527c6YhtoMaoDP28CfxMbdCik/9t4+PSSBrnV63MFl43YUwqPlyRyhdd5c5pzI8b+A==
+azure-iot-device@1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/azure-iot-device/-/azure-iot-device-1.9.9.tgz#9022eb975130e495f88eff6029b220911e39c435"
+  integrity sha512-XcREjVnMOmpYyI/99z6w5OS9ANA7UjjeGJvlvdhOBBaNih9BWNZeu5VSquZ2VkdZDP7ojVkbaI/hhKni8AW/ug==
   dependencies:
-    azure-iot-common "1.9.7"
-    azure-iot-http-base "1.9.7"
+    azure-iot-common "1.9.9"
+    azure-iot-http-base "1.9.9"
     azure-storage "^2.10.2"
     debug "^4.1.1"
     lodash "^4.17.11"
     machina "^4.0.2"
     traverse "^0.6.6"
 
-azure-iot-http-base@1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/azure-iot-http-base/-/azure-iot-http-base-1.9.7.tgz#129b103d5a124810241fb3925b5418ffe2523d6e"
-  integrity sha512-U30VGltsLxPXrGGYpk5ahjSwGM++J+PesG+sGk6P3tluNvCkftB/gUn1GTop2Qxj7KavNRgA/8kqm4RYCTA/Iw==
+azure-iot-http-base@1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/azure-iot-http-base/-/azure-iot-http-base-1.9.9.tgz#4ef94570e3f32bf91bac49760e7f889679e65a43"
+  integrity sha512-0bV1neO/9NpLEyT8MDKbYrkYnAIet/IiVsFj0f3pXDER6F+O5rNAmz9awz29vrwYHl75mMOmvlil44NRU7IWbg==
   dependencies:
-    azure-iot-common "1.9.7"
+    azure-iot-common "1.9.9"
     debug "^4.1.1"
     uuid "^3.3.2"
 
-azure-iothub@^1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/azure-iothub/-/azure-iothub-1.9.7.tgz#ee9ac77244ebbb79ead1c68d20966b4da086e91f"
-  integrity sha512-jT74xmjXEL5ahqGexEAbQFx3+BNCWQXvp+P5Vc5sR0q/qposU/d4QxidGrN/GUxP45M3NqvQPwitoewA5A3kBg==
+azure-iothub@1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/azure-iothub/-/azure-iothub-1.9.9.tgz#221096ae250781ac1adde489b008c8991d527b85"
+  integrity sha512-jXeX1d8IQtTD1EjQAOZ9TExTICCNy9TzQPZtCmvhZykdgO8wIPye8UIte50krDwn2UOcjSuYV4DtaYGqNOAyWQ==
   dependencies:
     async "^2.6.2"
-    azure-iot-amqp-base "2.2.7"
-    azure-iot-common "1.9.7"
-    azure-iot-http-base "1.9.7"
+    azure-iot-amqp-base "2.2.9"
+    azure-iot-common "1.9.9"
+    azure-iot-http-base "1.9.9"
     debug "^4.1.1"
     lodash "^4.17.11"
     machina "^4.0.2"

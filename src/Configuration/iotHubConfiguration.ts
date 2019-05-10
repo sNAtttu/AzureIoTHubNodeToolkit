@@ -8,4 +8,10 @@ export default class IoTHubConfiguration {
     } = configurationJson;
     return `HostName=${HostName};SharedAccessKeyName=${SharedAccessKeyName};SharedAccessKey=${SharedAccessKey}`;
   }
+
+  public static getHostName(): string {
+    const { HostName } = configurationJson;
+    return HostName;
+  }
+
 }

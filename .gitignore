@@ -3,3 +3,4 @@ config.json
 dist/
 node_modules/
 createdDevices.json
+.vscode/settings.json

@@ -4,5 +4,7 @@ export default {
     delete: "delete",
     deleteAll: "deleteAll",
     getTwin: "getTwin",
+    healthCheck: "health",
+    sendData: "sendData",
   },
 };
