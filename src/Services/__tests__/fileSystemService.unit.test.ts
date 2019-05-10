@@ -35,4 +35,13 @@ describe("File system service", () => {
     expect(fileService.doesCreatedDevicesFileExist()).toBe(true);
     expect(fileService.getCreatedDevices()).toEqual([device]);
   });
+
+  it("should find a device based on the device id", () => {
+    const device = createTestDevice();
+    const { deviceId } = device;
+    fileService.saveCreatedDevice(device);
+    const foundDevice = fileService.findDevice(deviceId);
+    expect(foundDevice).toEqual(device);
+  });
+
 });

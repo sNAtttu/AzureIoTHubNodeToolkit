@@ -23,6 +23,14 @@ export default class FileService {
     return this.createdDevices;
   }
 
+  public findDevice(deviceId: string): Device {
+    const deviceFound = this.createdDevices.find((device) => device.deviceId === deviceId);
+    if (!deviceFound) {
+      throw new Error("There's no device with Id: " + deviceFound);
+    }
+    return deviceFound;
+  }
+
   public saveDevicesToDisk() {
     this.saveDevices();
   }

@@ -36,11 +36,9 @@ switch (action) {
     break;
   case actions.sendData:
     const sendDataArguments: ISendDataArguments = validateSendDataActionCliArguments(argv);
-    const { interval } = sendDataArguments;
+    const { interval, deviceId } = sendDataArguments;
     logger.info(`Starting to send data every ${interval} seconds`);
-    // For now take first device
-    // TODO: Functionality to find device based on id.
-    const existingDevice = fileService.getCreatedDevices()[0];
+    const existingDevice = fileService.findDevice(deviceId);
     const hostName = Configuration.getHostName();
     const deviceService = IotDeviceFactory.getDeviceService(hostName, existingDevice);
     deviceService.startSendingData(interval);

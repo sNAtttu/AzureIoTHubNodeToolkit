@@ -24,11 +24,13 @@ function validateObjectPropertyExistence(
 }
 
 function validateSendDataActionCliArguments(argv: any): ISendDataArguments {
-  const { interval } = argv;
+  const { interval, deviceId } = argv;
   const intervalIsValid = interval && typeof interval === "number";
-  if (intervalIsValid) {
+  const deviceIdIsValid = deviceId && typeof deviceId === "string";
+  if (intervalIsValid && deviceIdIsValid) {
     return {
       interval,
+      deviceId,
     };
   }
   throw new Error("Send data arguments are invalid");
