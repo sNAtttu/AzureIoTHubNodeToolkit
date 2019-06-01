@@ -42,3 +42,5 @@ This application expects that there is config.json in the root folder.
 
 Example:
 `{ "HostName": "", "SharedAccessKeyName": "", "SharedAccessKey": "" }`
+
+**Remember to compile after changing the config, the compilation includes the config in the dist folder.**
