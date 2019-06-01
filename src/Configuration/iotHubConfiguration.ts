@@ -14,4 +14,7 @@ export default class IoTHubConfiguration {
     return HostName;
   }
 
+  public static getConfiguration() {
+    return configurationJson;
+  }
 }

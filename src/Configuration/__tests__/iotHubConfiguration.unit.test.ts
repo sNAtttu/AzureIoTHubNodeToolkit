@@ -14,4 +14,13 @@ describe("Configuration", () => {
     const connString = `HostName=${HostName};SharedAccessKeyName=${SharedAccessKeyName};SharedAccessKey=${SharedAccessKey}`;
     expect(connectionString).toEqual(connString);
   });
+
+  it("should get the hostname from the configuration json", () => {
+    const hostName: string = Configuration.getHostName();
+    expect(hostName).toBeTruthy();
+  });
+
+  it("should get the configuration", () => {
+    expect(Configuration.getConfiguration()).toBeTruthy();
+  });
 });
