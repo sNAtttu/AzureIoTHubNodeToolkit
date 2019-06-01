@@ -38,4 +38,11 @@ describe("File system service", () => {
     const foundDevice = fileService.findDevice(deviceId);
     expect(foundDevice).toEqual(device);
   });
+
+  it("should return all the device ids of the created devices", () => {
+    const device = createTestDevice();
+    fileService.saveCreatedDevice(device);
+    const deviceIds = fileService.getCreatedDeviceIds();
+    expect(deviceIds).toContain(device.deviceId);
+  });
 });
