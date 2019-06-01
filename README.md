@@ -24,7 +24,7 @@ Available commands
 - **yarn start --action getDeviceIds**
   - Lists all the device ids found from the createdDevices.json.
 - **yarn start --action sendData --deviceId {string} --interval {number}**
-  - Starts to send data to the platform with the pre specified interval.
+  - Starts to send data to the platform with the pre specified interval (seconds).
 - **yarn start --action delete --deviceId {string}**
   - Deleted the specified device.
 - **yarn start --action deleteAll**
@@ -44,3 +44,7 @@ Example:
 `{ "HostName": "", "SharedAccessKeyName": "", "SharedAccessKey": "" }`
 
 **Remember to compile after changing the config, the compilation includes the config in the dist folder.**
+
+## Tests
+
+Project contains few unit tests which can be ran using command "yarn test"

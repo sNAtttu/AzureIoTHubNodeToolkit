@@ -1,4 +1,7 @@
-import { ISendDataArguments } from "../Interfaces/cliArguments";
+import {
+  IMonitorDataArguments,
+  ISendDataArguments,
+} from "../Interfaces/cliArguments";
 
 function validateDeviceId(deviceId: any): string {
   if (!deviceId || typeof deviceId !== "string") {
@@ -36,4 +39,20 @@ function validateSendDataActionCliArguments(argv: any): ISendDataArguments {
   throw new Error("Send data arguments are invalid");
 }
 
-export { validateDeviceId, validateObjectPropertyExistence, validateSendDataActionCliArguments };
+function validateMonitorDataActionCliArguments(
+  argv: any,
+): IMonitorDataArguments {
+  const { deviceId } = argv;
+  const deviceIdIsValid = deviceId && typeof deviceId === "string";
+  if (deviceIdIsValid) {
+    return { deviceId };
+  }
+  throw new Error("Send data arguments are invalid");
+}
+
+export {
+  validateDeviceId,
+  validateObjectPropertyExistence,
+  validateSendDataActionCliArguments,
+  validateMonitorDataActionCliArguments,
+};

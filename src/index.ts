@@ -1,5 +1,5 @@
 import { argv } from "yargs";
-import { startSendingData } from "./Actions/deviceActions";
+import { startMonitoringData, startSendingData } from "./Actions/deviceActions";
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
@@ -10,7 +10,10 @@ import CallbackProvider from "./Utilities/callbackProvider";
 import constants from "./Utilities/constants";
 import IotDeviceFactory from "./Utilities/deviceFactory";
 import LoggerFactory from "./Utilities/logger";
-import { validateDeviceId, validateSendDataActionCliArguments } from "./Utilities/validation";
+import {
+  validateDeviceId,
+  validateSendDataActionCliArguments,
+} from "./Utilities/validation";
 
 const logger = LoggerFactory.createLogger(
   "Index",
@@ -43,7 +46,7 @@ switch (action) {
     startSendingData(argv, fileService, Configuration.getHostName());
     break;
   case actions.monitor:
-
+    startMonitoringData(argv, fileService, Configuration.getHostName());
     break;
   case actions.healthCheck:
     logger.info("Doing a health check");

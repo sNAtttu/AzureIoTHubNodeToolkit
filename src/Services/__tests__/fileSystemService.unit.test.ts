@@ -1,8 +1,11 @@
 import { createTestDevice } from "../../TestUtilities/device";
 import FileService from "../fileSystemService";
 
+jest.mock("fs");
+
 describe("File system service", () => {
   let fileService: FileService;
+
   beforeEach(() => {
     fileService = new FileService();
   });
@@ -27,14 +30,6 @@ describe("File system service", () => {
     fileService.removeDevice(device.deviceId);
     expect(fileService.getCreatedDevices()).toEqual([device2]);
   });
-  // Not the best unit test since we communicate with the file system but this is ok for now.
-  it("should save the devices to a file if explicitly requested", () => {
-    const device = createTestDevice();
-    fileService.saveCreatedDevice(device);
-    fileService.saveDevicesToDisk();
-    expect(fileService.doesCreatedDevicesFileExist()).toBe(true);
-    expect(fileService.getCreatedDevices()).toEqual([device]);
-  });
 
   it("should find a device based on the device id", () => {
     const device = createTestDevice();
@@ -43,5 +38,4 @@ describe("File system service", () => {
     const foundDevice = fileService.findDevice(deviceId);
     expect(foundDevice).toEqual(device);
   });
-
 });

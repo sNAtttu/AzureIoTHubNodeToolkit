@@ -28,10 +28,14 @@ export default class FileService {
   }
 
   public findDevice(deviceId: string): Device {
-    const deviceFound = this.createdDevices.find((device) => device.deviceId === deviceId);
+    this.logger.info(`Finding a device with device id: ${deviceId}`);
+    const deviceFound = this.createdDevices.find(
+      (device) => device.deviceId === deviceId,
+    );
     if (!deviceFound) {
       throw new Error("There's no device with Id: " + deviceFound);
     }
+    this.logger.info("Device found.");
     return deviceFound;
   }
 
