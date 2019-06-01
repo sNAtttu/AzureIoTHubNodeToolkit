@@ -8,7 +8,7 @@ export default class FileService {
   private readonly createdDevicesPath = "./createdDevices.json";
   constructor() {
     this.logger = LoggerFactory.createLogger("FileService");
-    this.createdDevices = this.loadDevicesFromDisk();
+    this.loadDevices();
   }
 
   public saveCreatedDevice(device: Device) {
@@ -25,6 +25,10 @@ export default class FileService {
     const devices = this.createdDevices;
     this.isThereDevices(devices);
     return devices.map((device) => device.deviceId);
+  }
+
+  public loadDevices() {
+    this.createdDevices = this.loadDevicesFromDisk();
   }
 
   public findDevice(deviceId: string): Device {

@@ -1,11 +1,11 @@
+import { unlinkSync, writeFileSync } from "fs";
 import { createTestDevice } from "../../TestUtilities/device";
 import FileService from "../fileSystemService";
-
 jest.mock("fs");
 
 describe("File system service", () => {
   let fileService: FileService;
-
+  const createdDevicesPath = "./createdDevices.json";
   beforeEach(() => {
     fileService = new FileService();
   });
@@ -44,5 +44,60 @@ describe("File system service", () => {
     fileService.saveCreatedDevice(device);
     const deviceIds = fileService.getCreatedDeviceIds();
     expect(deviceIds).toContain(device.deviceId);
+  });
+
+  it("should load devices from the disk (createdDevices.json)", () => {
+    // Initialize variables
+    const testDevice = createTestDevice();
+    // Store original functions
+    const originalDeviceExistsCheck = fileService.doesCreatedDevicesFileExist;
+    const originalJsonParse = JSON.parse;
+
+    // Replace them with mocks
+    fileService.doesCreatedDevicesFileExist = jest.fn().mockReturnValue(true);
+    JSON.parse = jest.fn().mockReturnValue([testDevice]);
+
+    // Execute functionality
+    fileService.loadDevices();
+
+    // Assert
+    expect(fileService.getCreatedDevices()).toEqual([testDevice]);
+    // Restore original functions
+    fileService.doesCreatedDevicesFileExist = originalDeviceExistsCheck;
+    JSON.parse = originalJsonParse;
+  });
+
+  it("should load devices from the disk (createdDevices.json)", () => {
+    const originalDeviceExistsCheck = fileService.doesCreatedDevicesFileExist;
+    fileService.doesCreatedDevicesFileExist = jest.fn().mockReturnValue(false);
+    fileService.loadDevices();
+    fileService.doesCreatedDevicesFileExist = originalDeviceExistsCheck;
+    expect(fileService.getCreatedDevices()).toEqual([]);
+  });
+
+  it("should delete created devices from the disk if they exist", () => {
+    const originalDeviceExistsCheck = fileService.doesCreatedDevicesFileExist;
+    fileService.doesCreatedDevicesFileExist = jest.fn().mockReturnValue(true);
+    fileService.deleteCreatedDevicesFromDisk();
+    expect(unlinkSync).toBeCalledWith(createdDevicesPath);
+    fileService.doesCreatedDevicesFileExist = originalDeviceExistsCheck;
+  });
+
+  it("should save devices to a disk", () => {
+    const device = createTestDevice();
+    const expectedDataToBeSaved = JSON.stringify([device]);
+    fileService.saveCreatedDevice(device);
+    fileService.saveDevicesToDisk();
+    expect(writeFileSync).toBeCalledWith(
+      createdDevicesPath,
+      expectedDataToBeSaved,
+      { encoding: "utf8" },
+    );
+  });
+
+  it("should throw an exception if a device is not found", () => {
+    expect(() => {
+      fileService.findDevice("santeri");
+    }).toThrow();
   });
 });
