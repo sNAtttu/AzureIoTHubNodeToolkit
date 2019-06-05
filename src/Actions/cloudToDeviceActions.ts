@@ -10,7 +10,6 @@ export function cloudToDeviceMessageHandler(cloudToDeviceMessagePayload: any) {
   switch (action) {
     case constants.cloudToDeviceActions.stop:
       logger.info("Application will stop monitoring C2D messages");
-      process.exit();
       break;
     default:
       logger.warn("Unsupported action");
