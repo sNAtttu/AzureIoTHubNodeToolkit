@@ -1,6 +1,8 @@
 import { createTestDevice } from "../../TestUtilities/device";
 import DeviceService from "../deviceService";
 
+jest.mock("../deviceClient");
+
 describe("Device service", () => {
   let deviceService: DeviceService;
   const device = createTestDevice();

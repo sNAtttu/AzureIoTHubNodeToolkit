@@ -1,5 +1,6 @@
 module.exports = {
   "roots": [
+    "<rootDir>/__mocks__",
     "<rootDir>/src"
   ],
   "transform": {
