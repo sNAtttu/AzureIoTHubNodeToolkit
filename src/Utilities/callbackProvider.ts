@@ -3,7 +3,7 @@ import { Logger } from "winston";
 import { countDeviceTwinSize } from "../Actions/deviceTwin";
 
 export default class CallbackProvider {
-  public static getGetTwoParameterCallback(
+  public static getTwoParameterCallback(
     logger: Logger,
   ): TripleValueCallback<any, any> {
     return (error, result) => {
