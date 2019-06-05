@@ -1,5 +1,9 @@
 import { argv } from "yargs";
-import { startMonitoringData, startSendingData } from "./Actions/deviceActions";
+import {
+  getDeviceConnectionString,
+  startMonitoringData,
+  startSendingData,
+} from "./Actions/deviceActions";
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
@@ -48,8 +52,15 @@ switch (action) {
   case actions.monitor:
     startMonitoringData(argv, fileService, Configuration.getHostName());
     break;
-  case actions.healthCheck:
-    logger.info("Doing a health check");
+  case actions.getConnectionString:
+    const connectionString = getDeviceConnectionString(
+      argv,
+      fileService,
+      Configuration.getHostName(),
+    );
+    logger.info(
+      `Connection string for device ${argv.deviceId} is ${connectionString}`,
+    );
     break;
   case actions.getTwin:
     const deviceIdForTwin = validateDeviceId(argv.deviceId);

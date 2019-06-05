@@ -8,5 +8,9 @@ export default {
     sendData: "sendData",
     getDeviceIds: "getDeviceIds",
     monitor: "monitor",
+    getConnectionString: "getConnectionString",
+  },
+  cloudToDeviceActions: {
+    stop: "stop",
   },
 };

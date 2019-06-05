@@ -26,15 +26,32 @@ export function startSendingData(
   deviceService.startSendingData(interval);
 }
 
+export function getDeviceConnectionString(
+  argv: any,
+  fileService: FileService,
+  hostName: string,
+): string {
+  const connectionStringArgs: IMonitorDataArguments = validateMonitorDataActionCliArguments(
+    argv,
+  );
+  const { deviceId } = connectionStringArgs;
+  const existingDevice = fileService.findDevice(deviceId);
+  const deviceService = IotDeviceFactory.getDeviceService(
+    hostName,
+    existingDevice,
+  );
+  return deviceService.getConnectionString();
+}
+
 export function startMonitoringData(
   argv: any,
   fileService: FileService,
   hostName: string,
 ) {
-  const sendDataArguments: IMonitorDataArguments = validateMonitorDataActionCliArguments(
+  const monitorDataArgs: IMonitorDataArguments = validateMonitorDataActionCliArguments(
     argv,
   );
-  const { deviceId } = sendDataArguments;
+  const { deviceId } = monitorDataArgs;
   const existingDevice = fileService.findDevice(deviceId);
   const deviceService = IotDeviceFactory.getDeviceService(
     hostName,

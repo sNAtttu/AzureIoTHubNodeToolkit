@@ -6,13 +6,16 @@ import {
 import { AmqpWs } from "azure-iot-device-amqp";
 import { Device } from "azure-iothub";
 import { Logger } from "winston";
+import { cloudToDeviceMessageHandler } from "../Actions/cloudToDeviceActions";
+import CallbackProvider from "../Utilities/callbackProvider";
 import { generateDummyData } from "../Utilities/dummyData";
 import LoggerFactory from "../Utilities/logger";
-
 export default class DeviceService {
-  private connectionString: string = "";
+  public deviceEventTimers: NodeJS.Timeout[];
   private deviceClient: DeviceClient;
+  private connectionString: string = "";
   private logger: Logger;
+
   constructor(hostName: string, device: Device) {
     this.connectionString = this.constructConnectionString(hostName, device);
     this.deviceClient = DeviceClient.fromConnectionString(
@@ -20,6 +23,7 @@ export default class DeviceService {
       AmqpWs,
     );
     this.logger = LoggerFactory.createLogger("IoTDevice");
+    this.deviceEventTimers = [];
   }
 
   public getConnectionString() {
@@ -33,7 +37,7 @@ export default class DeviceService {
         `Starting to send data with an interval of ${interval *
           1000} milliseconds.`,
       );
-      setInterval(() => {
+      const dummyEventSender = setInterval(() => {
         const dummyData = generateDummyData();
         const message = new Message(JSON.stringify(dummyData));
         this.logger.info(
@@ -45,10 +49,14 @@ export default class DeviceService {
           LoggerFactory.handleErrorLogging(sendDataError, this.logger),
         );
       }, interval * 1000);
-      this.deviceClient.on("message", (message: Message) => {
-        this.logger.info(`${JSON.stringify(message.getData())}`);
-      });
+
+      this.deviceEventTimers.push(dummyEventSender);
     });
+  }
+
+  // Function for mainly testing purposes. Gives an opportunity to override device client.
+  public setDeviceClient(newDeviceClient: DeviceClient) {
+    this.deviceClient = newDeviceClient;
   }
 
   public startMonitoringDevice() {
@@ -57,7 +65,13 @@ export default class DeviceService {
       this.logger.info(`Starting to monitor messages for specified device.`);
       this.logger.silly(this.connectionString);
       this.deviceClient.on("message", (message: Message) => {
-        this.logger.info(`${JSON.stringify(message.getData())}`);
+        const jsonData = JSON.parse(message.getData().toString());
+        try {
+          cloudToDeviceMessageHandler(jsonData);
+          this.deviceClient.complete(message);
+        } catch (exception) {
+          this.deviceClient.reject(message);
+        }
       });
       this.deviceClient.on("error", (error: Error) =>
         LoggerFactory.handleErrorLogging(error, this.logger),
@@ -74,6 +88,7 @@ export default class DeviceService {
       }
     });
   }
+
   private constructConnectionString(hostName: string, device: Device): string {
     if (device && device.authentication && device.authentication.symmetricKey) {
       return DeviceConnectionString.createWithSharedAccessKey(
