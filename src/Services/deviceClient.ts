@@ -7,6 +7,8 @@ import { Logger } from "winston";
 import LoggerFactory from "../Utilities/logger";
 
 export default class DeviceClientWrapper {
+  public registeredListeners: Map<string, any>;
+
   private deviceClient: DeviceClient;
   private logger: Logger;
 
@@ -16,6 +18,7 @@ export default class DeviceClientWrapper {
   constructor(deviceClient: DeviceClient) {
     this.deviceClient = deviceClient;
     this.logger = LoggerFactory.createLogger("DeviceClientWrapper");
+    this.registeredListeners = new Map();
     this.registerErrorListener();
   }
 
@@ -40,14 +43,22 @@ export default class DeviceClientWrapper {
     );
   }
 
-  public registerListenerForMessages(listener: (c2dMessage: Message) => void) {
+  public registerListenerForMessages(
+    listenerId: string,
+    listener: (c2dMessage: Message) => void,
+  ) {
     this.deviceClient.on(this.messageEventHandlerName, listener);
+    this.registeredListeners.set(listenerId, listener);
   }
 
   public registerErrorListener() {
     this.deviceClient.on(this.errorEventHandlerName, (error: Error) =>
       LoggerFactory.handleErrorLogging(error, this.logger),
     );
+  }
+
+  public emitMessageFromDeviceClient(messageName: string, ...args: any) {
+    this.deviceClient.emit(messageName, ...args);
   }
 
   public completeMessage(message: Message) {

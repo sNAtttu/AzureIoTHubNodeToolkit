@@ -14,7 +14,13 @@ const ConnectionString = {
 };
 
 class Message {
-  constructor(jsonData: string) {}
+  public messageJsonData: string;
+  constructor(jsonData: string) {
+    this.messageJsonData = jsonData;
+  }
+  public getData() {
+    return this.messageJsonData;
+  }
 }
 
 class Client extends EventEmitter {
@@ -30,6 +36,28 @@ class Client extends EventEmitter {
   public open(callback?: (error: Error | undefined) => void) {
     if (callback) {
       callback(undefined);
+    }
+  }
+
+  public complete(
+    message: Message,
+    callback: (error: Error | undefined, success: any) => void,
+  ) {
+    if (message.messageJsonData === "h4x") {
+      callback(new Error("There's no message"), undefined);
+    } else {
+      callback(undefined, message);
+    }
+  }
+
+  public reject(
+    message: Message,
+    callback: (error: Error | undefined, success: any) => void,
+  ) {
+    if (message.messageJsonData === "h4x") {
+      callback(new Error("There's no message"), undefined);
+    } else {
+      callback(undefined, message);
     }
   }
 

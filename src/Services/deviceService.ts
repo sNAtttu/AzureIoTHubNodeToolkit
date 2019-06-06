@@ -12,7 +12,7 @@ import { generateDummyData } from "../Utilities/dummyData";
 import LoggerFactory from "../Utilities/logger";
 export default class DeviceService {
   public deviceEventTimers: NodeJS.Timeout[];
-  private deviceClient: DeviceClientWrapper;
+  public deviceClient: DeviceClientWrapper;
   private connectionString: string = "";
   private logger: Logger;
 
@@ -50,11 +50,14 @@ export default class DeviceService {
       LoggerFactory.handleErrorLogging(openConnectionError, this.logger);
       this.logger.info(`Starting to monitor messages for specified device.`);
       this.logger.silly(this.connectionString);
-      this.deviceClient.registerListenerForMessages(this.monitorMessages);
+      this.deviceClient.registerListenerForMessages(
+        "monitorMessages",
+        this.monitorMessages,
+      );
     });
   }
 
-  private monitorMessages(message: Message) {
+  public monitorMessages(message: Message) {
     const jsonData = JSON.parse(message.getData().toString());
     try {
       cloudToDeviceMessageHandler(jsonData);

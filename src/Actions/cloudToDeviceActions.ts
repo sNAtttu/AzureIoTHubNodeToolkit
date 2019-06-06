@@ -7,6 +7,9 @@ export function cloudToDeviceMessageHandler(cloudToDeviceMessagePayload: any) {
   logger.info(JSON.stringify(cloudToDeviceMessagePayload));
 
   const { action } = cloudToDeviceMessagePayload;
+  if (!action) {
+    throw new Error("Action missing");
+  }
   switch (action) {
     case constants.cloudToDeviceActions.stop:
       logger.info("Application will stop monitoring C2D messages");
