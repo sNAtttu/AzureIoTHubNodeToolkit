@@ -65,22 +65,22 @@ describe("Device service", () => {
     jest.clearAllTimers();
   });
 
-  it("should start monitoring device", () => {
-    deviceService.startMonitoringDevice();
-    expect(
-      deviceService.deviceClient.registeredListeners.get("monitorMessages"),
-    ).toBeTruthy();
-  });
+  // it("should start monitoring device", () => {
+  //   deviceService.startMonitoringDevice();
+  //   expect(
+  //     deviceService.deviceClient.registeredListeners.get("monitorMessages"),
+  //   ).toBeTruthy();
+  // });
 
-  it("should complete messages which are valid", () => {
-    const completeSpy = jest.spyOn(
-      deviceService.deviceClient,
-      "completeMessage",
-    );
-    const message: Message = new Message(JSON.stringify({ action: "stop" }));
-    deviceService.monitorMessages(message);
-    expect(completeSpy).toBeCalled();
-  });
+  // it("should complete messages which are valid", () => {
+  //   const completeSpy = jest.spyOn(
+  //     deviceService.deviceClient,
+  //     "completeMessage",
+  //   );
+  //   const message: Message = new Message(JSON.stringify({ action: "stop" }));
+  //   deviceService.monitorMessages(message);
+  //   expect(completeSpy).toBeCalled();
+  // });
 
   it("should reject messages which are not valid", () => {
     const rejectSpy = jest.spyOn(deviceService.deviceClient, "rejectMessage");
