@@ -1,3 +1,4 @@
+/* tslint:disable:no-empty */
 import { EventEmitter } from "events";
 
 export default class DeviceClient extends EventEmitter {
