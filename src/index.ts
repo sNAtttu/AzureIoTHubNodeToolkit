@@ -7,17 +7,12 @@ import {
 import { getDeviceTwin } from "./Actions/deviceTwin";
 import { removeAllCreatedDevices } from "./Actions/removeAllDevices";
 import Configuration from "./Configuration/iotHubConfiguration";
-import { ISendDataArguments } from "./Interfaces/cliArguments";
 import FileService from "./Services/fileSystemService";
 import IotHubService from "./Services/iotHubService";
 import CallbackProvider from "./Utilities/callbackProvider";
 import constants from "./Utilities/constants";
-import IotDeviceFactory from "./Utilities/deviceFactory";
 import LoggerFactory from "./Utilities/logger";
-import {
-  validateDeviceId,
-  validateSendDataActionCliArguments,
-} from "./Utilities/validation";
+import { validateDeviceId } from "./Utilities/validation";
 
 const logger = LoggerFactory.createLogger(
   "Index",
