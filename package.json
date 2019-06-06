@@ -17,7 +17,6 @@
     "@types/winston": "2.4.4",
     "@types/yargs": "13.0.0",
     "jest": "24.7.1",
-    "pre-push": "^0.1.1",
     "ts-jest": "24.0.2",
     "tslint": "5.16.0",
     "typescript": "3.4.5"

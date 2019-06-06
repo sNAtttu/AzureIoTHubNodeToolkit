@@ -82,10 +82,10 @@ describe("Device service", () => {
     expect(completeSpy).toBeCalled();
   });
 
-  // it("should reject messages which are not valid", () => {
-  //   const rejectSpy = jest.spyOn(deviceService.deviceClient, "rejectMessage");
-  //   const message: Message = new Message(JSON.stringify("bar"));
-  //   deviceService.monitorMessages(message);
-  //   expect(rejectSpy).toBeCalled();
-  // });
+  it("should reject messages which are not valid", () => {
+    const rejectSpy = jest.spyOn(deviceService.deviceClient, "rejectMessage");
+    const message: Message = new Message(JSON.stringify("bar"));
+    deviceService.monitorMessages(message);
+    expect(rejectSpy).toBeCalled();
+  });
 });
