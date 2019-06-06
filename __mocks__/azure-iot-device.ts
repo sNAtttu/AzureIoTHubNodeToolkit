@@ -1,3 +1,5 @@
+/* tslint:disable:max-classes-per-file */
+import { Message as SdkMessage } from "azure-iot-device";
 import { EventEmitter } from "events";
 // These values are got from other test utilities
 const ConnectionString = {
@@ -11,6 +13,10 @@ const ConnectionString = {
   },
 };
 
+class Message {
+  constructor(jsonData: string) {}
+}
+
 class Client extends EventEmitter {
   public static fromConnectionString(
     connString: string,
@@ -21,6 +27,18 @@ class Client extends EventEmitter {
   constructor() {
     super();
   }
+  public open(callback?: (error: Error | undefined) => void) {
+    if (callback) {
+      callback(undefined);
+    }
+  }
+
+  public sendEvent(
+    message: SdkMessage,
+    callback: (error: Error | undefined) => void,
+  ) {
+    callback(undefined);
+  }
 }
 
-export { ConnectionString, Client };
+export { ConnectionString, Client, Message };
