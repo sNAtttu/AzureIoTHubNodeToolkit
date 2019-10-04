@@ -24,10 +24,10 @@
     "typescript": "3.4.5"
   },
   "dependencies": {
-    "azure-iot-common": "1.9.9",
-    "azure-iot-device": "1.9.9",
-    "azure-iot-device-amqp": "1.9.9",
-    "azure-iothub": "1.9.9",
+    "azure-iot-common": "1.11.0",
+    "azure-iot-device": "1.11.0",
+    "azure-iot-device-amqp": "1.11.0",
+    "azure-iothub": "1.11.0",
     "uuid": "^3.3.2",
     "winston": "^3.2.1",
     "yargs": "^13.2.2"
