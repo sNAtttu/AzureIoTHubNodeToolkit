@@ -31,6 +31,12 @@ describe("File system service", () => {
     expect(fileService.getCreatedDevices()).toEqual([device2]);
   });
 
+  it("should not remove device Id from the array if there is no device", () => {
+    const createdDevices = fileService.getCreatedDevices();
+    fileService.removeDevice("foobarId");
+    expect(fileService.getCreatedDevices()).toEqual(createdDevices);
+  });
+
   it("should find a device based on the device id", () => {
     const device = createTestDevice();
     const { deviceId } = device;
